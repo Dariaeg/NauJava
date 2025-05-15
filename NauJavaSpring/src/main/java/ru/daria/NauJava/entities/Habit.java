@@ -1,25 +1,40 @@
-package ru.daria.habitTracker.entities;
+package ru.daria.NauJava.entities;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Table(name = "habits")
+@Getter
+@Setter
 public class Habit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(length = 1000)
     private String description;
-    private int targetCount;
-    private int currentCount;
-    private boolean isActive;
 
-    public Habit() {
-    }
+    @Column(name = "target_count", nullable = false)
+    private Integer targetCount;
 
-    public Habit(Long id, String name, String description, int targetCount,
-                 int currentCount, boolean isActive) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.targetCount = targetCount;
-        this.currentCount = currentCount;
-        this.isActive = isActive;
-    }
+    @Column(name = "current_count", nullable = false)
+    private Integer currentCount = 0;
+
+    @Column(nullable = false)
+    public Boolean active = true;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     // Геттеры и сеттеры
     public Long getId() {
@@ -63,11 +78,11 @@ public class Habit {
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
     public void setActive(boolean active) {
-        isActive = active;
+        active = true;
     }
 
     public void incrementCount() {
@@ -80,15 +95,11 @@ public class Habit {
         return currentCount >= targetCount;
     }
 
-    @Override
-    public String toString() {
-        return "Habit{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", targetCount=" + targetCount +
-                ", currentCount=" + currentCount +
-                ", isActive=" + isActive +
-                '}';
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setCategory(Category healthCategory) {
+        this.category = healthCategory;
     }
 }

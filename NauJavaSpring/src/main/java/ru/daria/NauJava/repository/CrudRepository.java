@@ -1,4 +1,4 @@
-package ru.daria.habitTracker.repository;
+package ru.daria.NauJava.repository;
 
 import java.util.ArrayList;
 
