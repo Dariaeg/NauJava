@@ -1,7 +1,7 @@
-package ru.daria.habitTracker.config;
+package ru.daria.NauJava.config;
 
-import ru.daria.habitTracker.service.HabitService;
-import ru.daria.habitTracker.entities.Habit;
+import ru.daria.NauJava.service.HabitService;
+import ru.daria.NauJava.entities.Habit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
